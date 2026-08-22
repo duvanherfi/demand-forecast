@@ -14,8 +14,8 @@ Leer eso antes que nada al retomar.
       terminar.
 - [ ] **Vuelta 2b — gradient boosting**, comparado contra el lineal y contra
       los cuatro baselines.
-- [ ] **Vuelta 3 — servir peticiones.** FastAPI, artefacto versionado,
-      desplegado en plan gratuito.
+- [ ] **Vuelta 3 — servir peticiones.** FastAPI, pasarela fina en Go por
+      delante, artefacto versionado, desplegado en plan gratuito.
 - [ ] **Vuelta 4 — que no se pudra.** Backtest mes a mes, deriva,
       reentrenamiento.
 - [ ] **Vuelta 5 (opcional) — red neuronal**, y publicar el resultado gane o
@@ -25,9 +25,13 @@ Leer eso antes que nada al retomar.
 
 - [x] **Diseño acordado y escrito.** Enfoque en espiral sobre predicción de
       demanda con datos públicos de la TLC de Nueva York; Python 3.12 con `uv`,
-      FastAPI para servir; Rails y Go fuera a propósito.
+      FastAPI para servir, con una pasarela en Go en la vuelta 3; Rails fuera a
+      propósito. La profundidad extra se decide al terminar la vuelta 4.
 
-## Después de esto
+## Decisión aplazada
 
-Segundo proyecto sobre música apoyado en tunebox, que ya guarda historial de
-escucha real. Va después de la vuelta 4, nunca en paralelo.
+Al terminar la vuelta 4 hay que elegir entre profundizar este repo (vuelta 5,
+hiperparámetros, importancia de variables, informe) o empezar el proyecto de
+música sobre tunebox, que ya guarda historial de escucha real. Se decide
+entonces, con lo que hayan preguntado las primeras entrevistas. Nunca en
+paralelo.

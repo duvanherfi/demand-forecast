@@ -152,7 +152,12 @@ latencia, y el desajuste entre cómo se calculan las variables al entrenar y
 cómo se calculan al servir —el fallo que rompe modelos en producción sin que
 nadie se entere—.
 
-**Entregable:** `src/api/`, `docker-compose.yml`, URL viva.
+Incluye una **pasarela fina en Go** por delante del servicio de Python: recibe
+la petición, la reenvía, cachea. Un día de trabajo, y hace explícita la historia
+de la silla 1 —*el modelo en Python, el servicio en Go*—, que es el diferencial
+frente a un candidato que solo sabe Python.
+
+**Entregable:** `src/api/`, `gateway/`, `docker-compose.yml`, URL viva.
 
 **Hito:** enseñable a un cliente.
 
@@ -172,6 +177,21 @@ En datos tabulares el gradient boosting suele ganar. Probarlo y publicar que
 perdió demuestra criterio: saber cuándo no sacar la herramienta grande. Si
 gana, mejor.
 
+## La decisión aplazada
+
+A 4 horas diarias sobra capacidad después de la vuelta 4, y hay dos formas de
+gastarla: profundizar este repo (vuelta 5, búsqueda de hiperparámetros,
+importancia de variables, informe escrito) o empezar el proyecto de música.
+
+**Se decide al terminar la vuelta 4, no antes**, y con información real: qué
+preguntan en las primeras entrevistas, qué parte del repo miran, dónde se nota
+que falta algo. Decidirlo hoy sería elegir con suposiciones.
+
+La inclinación de partida, para no empezar en blanco: dos repos que resuelven
+problemas distintos valen más que uno sobredimensionado, y a partir de la
+vuelta 4 la profundidad extra rinde cada vez menos para contratar. Pero es una
+inclinación, no la decisión.
+
 ## Stack
 
 **Python en todo, hasta la vuelta 3.** El ecosistema de modelado está ahí y
@@ -179,11 +199,12 @@ pelearlo desde otro lenguaje es trabajo que no enseña nada. Para servir,
 **FastAPI**: mismo lenguaje, cero traducción entre el cálculo de variables al
 entrenar y al servir.
 
-Queda fuera Rails y Go deliberadamente: ya están demostrados en otros repos, y
-lo que hay que probar aquí es lo otro. Si más adelante interesa hacer explícita
-la historia de la silla 1 —*el modelo en Python, el servicio en Go*—, añadir una
-pasarela fina en Go sobre la vuelta 3 es un día de trabajo. No se mete al
-principio porque distrae con plomería ya dominada.
+Rails queda fuera: ya está demostrado en otros repos y aquí no aportaría nada.
+
+**Go entra, pero solo en la vuelta 3 y solo como pasarela.** Es un día de
+trabajo y hace explícita la historia de la silla 1. Lo que no hace es aparecer
+antes: meterlo en las vueltas 0 a 2 sería gastar días en plomería ya dominada
+mientras se aplaza lo único que hay que probar.
 
 **Python 3.12 gestionado por `uv`.** El intérprete del sistema es 3.14, donde
 parte del ecosistema de ML todavía va con retraso. `uv` fija la versión sin
