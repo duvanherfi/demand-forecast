@@ -26,8 +26,14 @@ El nivel declarado en fundamentos de ML es **oxidado**: la teoría se reconoce
 pero no se escribe sin releer. El plan no da por sabido `pandas` ni
 `scikit-learn`, e introduce cada concepto donde hace falta usarlo.
 
-Presupuesto de tiempo asumido: **6-8 horas por semana**. Si cambia, cambian los
-plazos, no el contenido ni el orden.
+Presupuesto de tiempo: **4 horas por semana**. El plan está dimensionado para
+ese ritmo, no para uno mayor recortado después.
+
+A 4 horas semanales lo que mata el proyecto no es la dificultad: es un hueco de
+tres semanas que obliga a releer todo para recordar dónde se estaba. Por eso
+cada vuelta termina en algo publicado —un marcador, un número, una URL— y por
+eso la vuelta 2 va partida en dos: el punto de recompensa llega a la mitad y no
+al final de seis semanas.
 
 ## El problema
 
@@ -67,7 +73,7 @@ sea instinto.
 
 ## Las vueltas
 
-### Vuelta 0 — Los datos y la pregunta (~1 semana)
+### Vuelta 0 — Los datos y la pregunta (~2 semanas)
 
 Descargar los parquet de la TLC, agregarlos a `(zona, hora) → nº de viajes`, y
 escribir la pregunta con precisión: qué se predice, con qué horizonte, y con
@@ -78,7 +84,7 @@ y por qué la unidad de agregación condiciona todo lo demás.
 
 **Entregable:** `src/ingest.py` y un notebook de exploración.
 
-### Vuelta 1 — El baseline y el arnés (~2 semanas)
+### Vuelta 1 — El baseline y el arnés (~4 semanas)
 
 La vuelta más importante. El aparato de medir se construye **antes** que
 cualquier modelo:
@@ -98,23 +104,38 @@ en todas las vueltas siguientes— y el marcador inicial en `reports/`.
 
 **Hito:** el repo se hace público aquí.
 
-### Vuelta 2 — El primer modelo de verdad (~3 semanas)
+### Vuelta 2a — Variables y un modelo interpretable (~3 semanas)
 
 Variables derivadas (hora, día de la semana, festivos, retardos, medias
-móviles), un modelo lineal primero por interpretable, y después gradient
-boosting. Todos pasan por el mismo marcador.
+móviles) y un modelo lineal. Lineal primero a propósito: los coeficientes se
+leen, así que cuando algo salga raro se puede mirar *qué* está aprendiendo, y
+eso no se puede hacer con gradient boosting.
 
-**Concepto:** ingeniería de variables, sobreajuste, regularización, validación
-cruzada adaptada al tiempo.
+**Concepto:** ingeniería de variables, y por qué un retardo mal calculado mira
+al futuro sin que nada dé error.
 
-**Entregable:** `src/features.py`, `src/models.py`, marcador actualizado.
+**Entregable:** `src/features.py`, `src/models.py` con el lineal, marcador
+actualizado.
 
-**Hito:** se pinea en el perfil, sustituyendo a `ytm_auto_yes`.
+**Hito:** se pinea en el perfil, sustituyendo a `ytm_auto_yes`. Un repo con
+baseline, variables y un modelo medido honestamente ya se defiende, aunque el
+modelo pierda.
 
-**Resultado admisible:** que el modelo **no** le gane al baseline de
-zona-hora-día. Si pasa, va en la tabla con su número y su explicación.
+### Vuelta 2b — Gradient boosting (~3 semanas)
 
-### Vuelta 3 — Que sirva peticiones (~1-2 semanas)
+El mismo problema con la herramienta que suele ganar en datos tabulares, por el
+mismo marcador.
+
+**Concepto:** sobreajuste, regularización, y validación cruzada adaptada al
+tiempo.
+
+**Entregable:** modelo de boosting y la comparación contra el lineal y contra
+los cuatro baselines.
+
+**Resultado admisible:** que **no** le gane al baseline de zona-hora-día. Si
+pasa, va en la tabla con su número y su explicación.
+
+### Vuelta 3 — Que sirva peticiones (~3 semanas)
 
 Un servicio FastAPI que responde predicciones por HTTP, el modelo entrenado
 como artefacto versionado, y el entrenamiento reproducible con un comando.
@@ -129,7 +150,7 @@ nadie se entere—.
 
 **Hito:** enseñable a un cliente.
 
-### Vuelta 4 — Que no se pudra (~2 semanas)
+### Vuelta 4 — Que no se pudra (~4 semanas)
 
 Backtest mes a mes para ver la degradación, detección de deriva en los datos, y
 un reentrenamiento programado.
@@ -219,12 +240,23 @@ negativo con su número al lado transmite que sus cifras son de fiar.
 
 ## Hitos de publicación
 
-| Vuelta | Qué se publica | Para qué habilita |
-|---|---|---|
-| 1 | Repo público, baseline, marcador | Criterio de evaluación |
-| 2 | Primer modelo y su comparación | Se pinea en el perfil |
-| 3 | URL viva | Enseñable a un cliente (silla 3) |
-| 4 | Backtest y deriva | Entrevista de la silla 2 (ML aplicado) |
+A 4 horas semanales, y contando desde el primer día de la vuelta 0:
+
+| Vuelta | Semanas | Qué se publica | Para qué habilita |
+|---|---|---|---|
+| 0 | 1-2 | — | — |
+| 1 | 3-6 | Repo público, baseline, marcador | Criterio de evaluación |
+| 2a | 7-9 | Variables y modelo lineal medido | **Se pinea en el perfil** |
+| 2b | 10-12 | Gradient boosting y su comparación | Resultado con el que hablar |
+| 3 | 13-15 | URL viva | Enseñable a un cliente (silla 3) |
+| 4 | 16-19 | Backtest y deriva | Entrevista de la silla 2 (ML aplicado) |
+
+Unos **cuatro meses y medio** hasta el repo completo, con algo público en la
+semana 6 y algo pineable en la 9.
+
+Esos plazos suponen constancia, no intensidad: cuatro horas cada semana llegan
+antes que doce horas un fin de semana de cada tres, porque el coste de
+reengancharse después de un hueco largo se come la diferencia.
 
 Difusión: dos publicaciones, no una por vuelta. Una en la vuelta 2, con el
 número y qué sorprendió; otra en la vuelta 3, con la demo viva.

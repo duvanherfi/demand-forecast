@@ -10,8 +10,10 @@ Leer eso antes que nada al retomar.
       `(zona, hora) → viajes`, escribir la pregunta con precisión.
 - [ ] **Vuelta 1 — baseline y arnés.** Partición temporal, cuatro predictores
       tontos, MAE y MAPE, marcador. Repo público al terminar.
-- [ ] **Vuelta 2 — primer modelo.** Variables derivadas, lineal, gradient
-      boosting. Se pinea en el perfil al terminar.
+- [ ] **Vuelta 2a — variables y modelo lineal.** Se pinea en el perfil al
+      terminar.
+- [ ] **Vuelta 2b — gradient boosting**, comparado contra el lineal y contra
+      los cuatro baselines.
 - [ ] **Vuelta 3 — servir peticiones.** FastAPI, artefacto versionado,
       desplegado en plan gratuito.
 - [ ] **Vuelta 4 — que no se pudra.** Backtest mes a mes, deriva,
