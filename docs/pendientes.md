@@ -8,8 +8,10 @@ Leer eso antes que nada al retomar.
 
 - [ ] **Vuelta 0 — datos y pregunta.** Descargar parquet de la TLC, agregar a
       `(zona, hora) → viajes`, escribir la pregunta con precisión.
+      Pasos en [`superpowers/plans/2026-08-22-vueltas-0-y-1.md`](superpowers/plans/2026-08-22-vueltas-0-y-1.md).
 - [ ] **Vuelta 1 — baseline y arnés.** Partición temporal, cuatro predictores
-      tontos, MAE y MAPE, marcador. Repo público al terminar.
+      tontos, MAE y WAPE (el MAPE se rompe: 41 zonas con menos de 100 viajes
+      al mes), marcador. Repo público al terminar. Pasos en el mismo plan.
 - [ ] **Vuelta 2a — variables y modelo lineal.** Se pinea en el perfil al
       terminar.
 - [ ] **Vuelta 2b — gradient boosting**, comparado contra el lineal y contra
