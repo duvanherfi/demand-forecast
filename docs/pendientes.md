@@ -63,6 +63,45 @@ Tres tests no se pudieron verificar porque necesitan los 700 MB descargados:
 
 Al terminar la vuelta 4 hay que elegir entre profundizar este repo
 (hiperparámetros, importancia de variables, informe escrito) o empezar el
-proyecto de música sobre tunebox, que ya guarda historial de escucha real. Se
-decide entonces, con lo que hayan preguntado las primeras entrevistas. Nunca en
-paralelo.
+proyecto de música sobre tunebox. Se decide entonces, con lo que hayan
+preguntado las primeras entrevistas. Nunca en paralelo.
+
+### Lo que ya se sabe del proyecto de música
+
+Sondeado el 2026-08-22 leyendo tunebox. **No hace falta rediseñarlo desde cero
+cuando toque: esto es el punto de partida.**
+
+**Qué hay.** `lib/data/play_history.dart` guarda hasta 5 000 reproducciones,
+una fila por escucha, con `videoId`, `title`, `artist`, `artistId`, `albumId`,
+`duration` y marca de tiempo. Más likes, colecciones guardadas y canciones
+retiradas. `export()` ya vuelca el log entero en JSON, así que la extracción
+está resuelta.
+
+**Qué falta, y manda sobre todo lo demás.** El log **no distingue una canción
+escuchada de una saltada**: `record()` se llama al abrir el stream
+(`player_service.dart:658`), así que tres segundos y la pista entera son la
+misma fila. Sin negativos, un recomendador aprende "le gusta todo lo que ha
+empezado". La señal existe pero se tira: `_watchtime` ya calcula el momento en
+que una escucha cuenta —media pista o dos minutos— y solo se lo dice a Last.fm.
+Está anotado en `~/tunebox/docs/pendientes.md`.
+
+**La secuencia que importa.** La etiqueta solo existe hacia adelante: no se
+puede reconstruir de las filas ya guardadas. Así que **instrumentar tunebox
+cuanto antes** hace que los datos se acumulen mientras se hacen las seis
+vueltas de este repo, y al llegar a la vuelta 4 hay dataset esperando en vez de
+5 000 arranques sin etiqueta.
+
+**El problema, si hay etiqueta:** predecir si una canción se va a saltar, dado
+hora del día, artista, cuándo se oyó por última vez y posición en la sesión.
+Clasificación binaria con baseline obvio (la tasa global de finalización), y la
+misma disciplina de evaluación que este repo. **Si no hay etiqueta:** predecir
+la siguiente canción a partir de las últimas N, evaluable con partición
+temporal usando solo los arranques. Más modesto pero válido.
+
+**La limitación que hay que escribir en el README, no esconder:** son datos de
+**un solo usuario**, así que el filtrado colaborativo clásico está descartado
+—no hay con quién comparar—. Se presenta como lo que es: un modelo personal
+sobre datos propios, que es justo lo que nadie más puede copiar.
+
+**Lo que lo hace mejor que un portafolio normal:** el modelo puede volver a la
+app, como autoplay que evita lo que sueles saltar. App → datos → modelo → app.
