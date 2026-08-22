@@ -26,14 +26,20 @@ El nivel declarado en fundamentos de ML es **oxidado**: la teoría se reconoce
 pero no se escribe sin releer. El plan no da por sabido `pandas` ni
 `scikit-learn`, e introduce cada concepto donde hace falta usarlo.
 
-Presupuesto de tiempo: **4 horas por semana**. El plan está dimensionado para
-ese ritmo, no para uno mayor recortado después.
+Presupuesto de tiempo: **4 horas diarias**, unas 20 semanales.
 
-A 4 horas semanales lo que mata el proyecto no es la dificultad: es un hueco de
-tres semanas que obliga a releer todo para recordar dónde se estaba. Por eso
-cada vuelta termina en algo publicado —un marcador, un número, una URL— y por
-eso la vuelta 2 va partida en dos: el punto de recompensa llega a la mitad y no
-al final de seis semanas.
+Con ese presupuesto el cuello de botella deja de ser el tiempo y pasa a ser la
+comprensión. El código se escribe cinco veces más rápido; la fuga temporal de
+datos o la regularización no se asimilan cinco veces más rápido, porque los
+conceptos necesitan repetición y noches de por medio. Los plazos de abajo
+reflejan eso: no son las horas divididas, son las horas topadas por lo que
+cabe aprender en una semana.
+
+El modo de fallo también cambia. A pocas horas semanales el proyecto muere por
+huecos largos; a veinte, muere por pasar de largo sobre conceptos que parecían
+entendidos porque el código funcionaba. La defensa es la misma en los dos
+casos: cada vuelta termina en un número publicado, y un número que no se sabe
+explicar es una vuelta que no está terminada.
 
 ## El problema
 
@@ -73,7 +79,7 @@ sea instinto.
 
 ## Las vueltas
 
-### Vuelta 0 — Los datos y la pregunta (~2 semanas)
+### Vuelta 0 — Los datos y la pregunta (~3 días)
 
 Descargar los parquet de la TLC, agregarlos a `(zona, hora) → nº de viajes`, y
 escribir la pregunta con precisión: qué se predice, con qué horizonte, y con
@@ -84,7 +90,7 @@ y por qué la unidad de agregación condiciona todo lo demás.
 
 **Entregable:** `src/ingest.py` y un notebook de exploración.
 
-### Vuelta 1 — El baseline y el arnés (~4 semanas)
+### Vuelta 1 — El baseline y el arnés (~1 semana)
 
 La vuelta más importante. El aparato de medir se construye **antes** que
 cualquier modelo:
@@ -104,7 +110,7 @@ en todas las vueltas siguientes— y el marcador inicial en `reports/`.
 
 **Hito:** el repo se hace público aquí.
 
-### Vuelta 2a — Variables y un modelo interpretable (~3 semanas)
+### Vuelta 2a — Variables y un modelo interpretable (~1 semana)
 
 Variables derivadas (hora, día de la semana, festivos, retardos, medias
 móviles) y un modelo lineal. Lineal primero a propósito: los coeficientes se
@@ -121,7 +127,7 @@ actualizado.
 baseline, variables y un modelo medido honestamente ya se defiende, aunque el
 modelo pierda.
 
-### Vuelta 2b — Gradient boosting (~3 semanas)
+### Vuelta 2b — Gradient boosting (~4 días)
 
 El mismo problema con la herramienta que suele ganar en datos tabulares, por el
 mismo marcador.
@@ -135,7 +141,7 @@ los cuatro baselines.
 **Resultado admisible:** que **no** le gane al baseline de zona-hora-día. Si
 pasa, va en la tabla con su número y su explicación.
 
-### Vuelta 3 — Que sirva peticiones (~3 semanas)
+### Vuelta 3 — Que sirva peticiones (~4 días)
 
 Un servicio FastAPI que responde predicciones por HTTP, el modelo entrenado
 como artefacto versionado, y el entrenamiento reproducible con un comando.
@@ -150,7 +156,7 @@ nadie se entere—.
 
 **Hito:** enseñable a un cliente.
 
-### Vuelta 4 — Que no se pudra (~4 semanas)
+### Vuelta 4 — Que no se pudra (~1 semana)
 
 Backtest mes a mes para ver la degradación, detección de deriva en los datos, y
 un reentrenamiento programado.
@@ -240,23 +246,25 @@ negativo con su número al lado transmite que sus cifras son de fiar.
 
 ## Hitos de publicación
 
-A 4 horas semanales, y contando desde el primer día de la vuelta 0:
+A 4 horas diarias, contando desde el primer día de la vuelta 0:
 
-| Vuelta | Semanas | Qué se publica | Para qué habilita |
+| Vuelta | Cuándo | Qué se publica | Para qué habilita |
 |---|---|---|---|
-| 0 | 1-2 | — | — |
-| 1 | 3-6 | Repo público, baseline, marcador | Criterio de evaluación |
-| 2a | 7-9 | Variables y modelo lineal medido | **Se pinea en el perfil** |
-| 2b | 10-12 | Gradient boosting y su comparación | Resultado con el que hablar |
-| 3 | 13-15 | URL viva | Enseñable a un cliente (silla 3) |
-| 4 | 16-19 | Backtest y deriva | Entrevista de la silla 2 (ML aplicado) |
+| 0 | días 1-3 | — | — |
+| 1 | semana 1-2 | Repo público, baseline, marcador | Criterio de evaluación |
+| 2a | semana 2-3 | Variables y modelo lineal medido | **Se pinea en el perfil** |
+| 2b | semana 3-4 | Gradient boosting y su comparación | Resultado con el que hablar |
+| 3 | semana 4-5 | URL viva | Enseñable a un cliente (silla 3) |
+| 4 | semana 5-6 | Backtest y deriva | Entrevista de la silla 2 (ML aplicado) |
 
-Unos **cuatro meses y medio** hasta el repo completo, con algo público en la
-semana 6 y algo pineable en la 9.
+Unas **seis semanas** hasta el repo completo, con algo público en la semana 2 y
+algo pineable en la 3.
 
-Esos plazos suponen constancia, no intensidad: cuatro horas cada semana llegan
-antes que doce horas un fin de semana de cada tres, porque el coste de
-reengancharse después de un hueco largo se come la diferencia.
+Estos plazos no salen de dividir las horas. La vuelta 1 lleva una semana aunque
+su código quepa en dos tardes, porque lo que se está construyendo ahí es
+criterio y el criterio no se acelera escribiendo más rápido. Si una vuelta se
+termina antes y el número no se sabe explicar de memoria, la vuelta no está
+terminada.
 
 Difusión: dos publicaciones, no una por vuelta. Una en la vuelta 2, con el
 número y qué sorprendió; otra en la vuelta 3, con la demo viva.
