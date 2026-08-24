@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Raw parquet never goes in git: 59 MB per month.
+data/raw/
+data/interim/
+
+# The small sample IS committed — see data/sample/.
+!data/sample/
