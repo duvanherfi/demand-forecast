@@ -18,9 +18,9 @@ ejecutado y verificado antes de escribirlo (34 tests pasan).
 
 ## Falta
 
-- [ ] **Vuelta 0 — datos y pregunta.** Descargar parquet de la TLC, agregar a
+- [x] **Vuelta 0 — datos y pregunta.** Descargar parquet de la TLC, agregar a
       `(zona, hora) → viajes`, escribir la pregunta con precisión. Tareas 1-4.
-- [ ] **Vuelta 1 — baseline y arnés.** Partición temporal, cuatro predictores
+- [x] **Vuelta 1 — baseline y arnés.** Partición temporal, cuatro predictores
       tontos, MAE y WAPE (el MAPE se rompe: 41 zonas con menos de 100 viajes
       al mes), marcador. Repo público al terminar. Tareas 5-9.
 - [ ] **Vuelta 2a — variables y modelo lineal.** Se pinea en el perfil al
