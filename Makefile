@@ -14,3 +14,6 @@ ingest:
 
 clean:
 	rm -rf data/interim
+
+score:
+	uv run python -m src.evaluate
